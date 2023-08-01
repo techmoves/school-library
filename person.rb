@@ -2,6 +2,7 @@ class Person < Nameable
   attr_reader :name
 
   def initialize(name)
+    super(name)
     @name = name
   end
 
