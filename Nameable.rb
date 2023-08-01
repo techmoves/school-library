@@ -3,3 +3,4 @@ class Nameable
     raise NotImplementedError, 'correct_name method is not implemented.'
   end
 end
+
