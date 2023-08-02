@@ -1,17 +1,19 @@
 require_relative 'nameable'
 require_relative 'capitalize_decorator'
 require_relative 'trimmer_decorator'
+# require_relative 'rentals'
 
 class Person < Nameable
+  attr_accessor :rentals, :name, :age
+
   def initialize(age, name: 'Unknown', parent_permission: true)
     super()
     @id = Random.rand(1..200)
     @name = name
     @age = age
     @parent_permission = parent_permission
+    @rentals = []
   end
-
-  attr_accessor :name, :age
   attr_reader :id
 
   def correct_name
