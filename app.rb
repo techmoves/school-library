@@ -10,23 +10,23 @@ class App
   end
 
   def list_all_books
-    puts "List of all books:"
+    puts 'List of all books:'
     @books.each do |book|
       puts "#{book.title} by #{book.author}"
     end
   end
 
   def list_all_people
-    puts "List of all people:"
+    puts 'List of all people:'
     @people.each do |person|
       puts "#{person.name} (#{person.class})"
     end
   end
 
   def create_person(name, role)
-    if role == "teacher"
+    if role == 'teacher'
       person = Teacher.new(name)
-    elsif role == "student"
+    elsif role == 'student'
       person = Student.new(name)
     else
       puts "Invalid role. Please enter 'teacher' or 'student'."

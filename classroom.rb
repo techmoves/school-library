@@ -13,4 +13,4 @@ class Classroom
     student << student
     student.classroom = self
   end
-end0
+end
