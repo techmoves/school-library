@@ -1,6 +1,11 @@
 require_relative 'person'
 require_relative 'book'
 require_relative 'rental'
+require_relative 'student'
+require_relative 'teacher'
+require_relative 'nameable'
+require_relative 'trimmer_decorator'
+require_relative 'capitalize_decorator'
 
 class App
   def initialize
@@ -19,17 +24,17 @@ class App
   def list_all_people
     puts 'List of all people:'
     @people.each do |person|
-      puts "#{person.name} (#{person.class})"
+      puts "#{person.id}, #{person.name}, #{person.age}"
     end
   end
 
-  def create_person(name, role)
+  def create_person(name, role, age, specialization)
     if role == 'teacher'
-      person = Teacher.new(name)
+      person = Teacher.new(name, age, specialization)
     elsif role == 'student'
-      person = Student.new(name)
+      person = Student.new(name, age)
     else
-      puts "Invalid role. Please enter 'teacher' or 'student'."
+
       return
     end
 

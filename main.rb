@@ -18,6 +18,7 @@ def get_user_input(prompt)
   gets.chomp
 end
 
+# rubocop:disable Metrics/CyclomaticComplexity
 def perform_option(app, choice)
   case choice
   when 1 then app.list_all_books
@@ -34,10 +35,23 @@ def perform_option(app, choice)
   end
 end
 
+# rubocop:enable Metrics/CyclomaticComplexity
 def create_person_option(app)
-  name = get_user_input('Enter name:')
-  role = get_user_input('Enter role (teacher/student):').downcase
-  app.create_person(name, role)
+  print 'Enter name: '
+  name = gets.chomp
+  print 'Enter age: '
+  age = gets.chomp.to_i
+  print 'Enter person type (teacher or student): '
+  type = gets.chomp.downcase
+  if type == 'teacher'
+    print 'Enter specialization: '
+    specialization = gets.chomp
+    app.create_person(name, age, type, specialization)
+  elsif type == 'student'
+    app.create_person(name, age, type)
+  else
+    puts 'Invalid person type.'
+  end
 end
 
 def create_book_option(app)
