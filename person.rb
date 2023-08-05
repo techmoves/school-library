@@ -1,6 +1,5 @@
 require_relative 'nameable'
 
-
 class Person < Nameable
   attr_accessor :name, :age, :rental
   attr_reader :id
