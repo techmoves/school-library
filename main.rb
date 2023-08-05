@@ -1,8 +1,12 @@
+# main.rb
+
 require_relative 'app'
 
-def display_options
-  puts '---------------------------------'
-  puts 'Select an option:'
+def main_menu
+  puts '------------------------'
+  puts 'Welcome to the Library!'
+  puts '------------------------'
+  puts 'Please choose an option:'
   puts '1. List all books'
   puts '2. List all people'
   puts '3. Create a person'
@@ -10,76 +14,39 @@ def display_options
   puts '5. Create a rental'
   puts '6. List rentals for a person'
   puts '7. Quit'
-  puts '---------------------------------'
+  print 'Enter your choice: '
+  gets.chomp.to_i
 end
 
-def get_user_input(prompt)
-  puts prompt
-  gets.chomp
-end
-
-# rubocop:disable Metrics/CyclomaticComplexity
-def perform_option(app, choice)
-  case choice
-  when 1 then app.list_all_books
-  when 2 then app.list_all_people
-  when 3 then create_person_option(app)
-  when 4 then create_book_option(app)
-  when 5 then create_rental_option(app)
-  when 6 then list_rentals_for_person_option(app)
-  when 7
-    puts 'Exiting the app...'
-    exit
-  else
-    puts 'Invalid choice. Please choose a valid option.'
-  end
-end
-
-# rubocop:enable Metrics/CyclomaticComplexity
-def create_person_option(app)
-  print 'Enter name: '
-  name = gets.chomp
-  print 'Enter age: '
-  age = gets.chomp.to_i
-  print 'Enter person type (teacher or student): '
-  type = gets.chomp.downcase
-  if type == 'teacher'
-    print 'Enter specialization: '
-    specialization = gets.chomp
-    app.create_person(name, age, type, specialization)
-  elsif type == 'student'
-    app.create_person(name, age, type)
-  else
-    puts 'Invalid person type.'
-  end
-end
-
-def create_book_option(app)
-  title = get_user_input('Enter book title:')
-  author = get_user_input('Enter author:')
-  app.create_book(title, author)
-end
-
-def create_rental_option(app)
-  person_id = get_user_input('Enter person ID:').to_i
-  book_title = get_user_input('Enter book title:')
-  app.create_rental(person_id, book_title)
-end
-
-def list_rentals_for_person_option(app)
-  person_id = get_user_input('Enter person ID:').to_i
-  app.list_rentals_for_person(person_id)
-end
-
+# rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength
 def main
   app = App.new
 
   loop do
-    display_options
-    choice = get_user_input('Enter your choice:').to_i
+    choice = main_menu
 
-    perform_option(app, choice)
+    case choice
+    when 1
+      app.list_books
+    when 2
+      app.list_people
+    when 3
+      create_person(app)
+    when 4
+      create_book(app)
+    when 5
+      create_rental(app)
+    when 6
+      list_rentals(app)
+    when 7
+      puts 'SignOut Goodbye!'
+      break
+    else
+      puts 'Invalid choice. Please try again.'
+    end
   end
 end
+# rubocop:enable Metrics/CyclomaticComplexity, Metrics/MethodLength
 
+# Call the main method to start the app
 main
